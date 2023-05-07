@@ -15,3 +15,5 @@ routerPath.route("/publishRide").post(VerifyToken, publishRide);
 
 // to get the list of the rides available
 routerPath.route("/getList").get(getRideList);
+
+module.exports = routerPath;
