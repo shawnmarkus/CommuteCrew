@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const ProviderModel = require("./Provider");
 
 const PublishRideSchema = mongoose.Schema({
   source: {
@@ -27,7 +28,7 @@ const PublishRideSchema = mongoose.Schema({
 
   providerDetailRef: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: Provider,
+    ref: ProviderModel,
     required: true,
   },
 
