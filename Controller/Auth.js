@@ -45,7 +45,7 @@ const checkIdExist = async (req, res) => {
  * function createProviderRecord requires {deviceId , userName, contactNumber, LicenceId , vehicalNo}
  * This function will create the user entry in Db
  */
-const createProviderRecord = async (req, res) => {
+const createProviderRecords = async (req, res) => {
   try {
     const { deviceId, userName, contactNumber, LicenceId, vehicalNo } =
       req.body;
@@ -73,7 +73,7 @@ const createProviderRecord = async (req, res) => {
   }
 };
 
-modules.export = {
+module.exports = {
   checkIdExist,
-  createProviderRecord,
+  createProviderRecords,
 };
