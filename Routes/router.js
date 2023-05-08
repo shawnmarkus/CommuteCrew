@@ -1,6 +1,6 @@
 const routerPath = require("express").Router();
 const { checkIdExist, createProviderRecords } = require("../Controller/Auth");
-const { publishRide } = require("../Controller/PublishRIdeAction");
+const { publishRide } = require("../Controller/PublishRideAction");
 const { getRideList } = require("../Controller/UserActions");
 const { VerifyToken } = require("../MiddleWare/VerifyToken");
 
