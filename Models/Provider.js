@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 
 const SubSchemaOfCarDetails = mongoose.Schema({
-  LicenceId: {
+  licenceId: {
     type: String,
     required: true,
   },
@@ -17,6 +17,7 @@ const ProviderSchema = mongoose.Schema({
   deviceId: {
     type: String,
     required: true,
+    unique: true,
   },
 
   userName: {
