@@ -11,8 +11,8 @@ const ProviderModel = require("../Models/Provider");
 
 const checkIdExist = async (req, res) => {
   try {
-    const userExist = await ProviderModel.find({
-      devideId: req.params.deviceId,
+    const userExist = await ProviderModel.findOne({
+      deviceId: req.params.deviceId,
     }).catch((error) => {
       console.log(error);
       const errorObj = new Error(`Internal server error : ${error}`);
@@ -46,16 +46,19 @@ const checkIdExist = async (req, res) => {
  * This function will create the user entry in Db
  */
 const createProviderRecords = async (req, res) => {
+  console.log("in create user");
   try {
-    const { deviceId, userName, contactNumber, LicenceId, vehicalNo } =
+    const { deviceId, userName, contactNumber, licenceId, vehicalNo } =
       req.body;
 
     const createdUser = await ProviderModel.create({
       deviceId,
       userName,
       contactNumber,
-      LicenceId,
-      vehicalNo,
+      carDetails: {
+        licenceId,
+        vehicalNo,
+      },
     }).catch((error) => {
       const errorObj = new Error(`Internal server error : ${error}`);
       errorObj.statusCode = 500;
