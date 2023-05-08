@@ -13,11 +13,12 @@ const PublishModel = require("../Models/PublishRide");
 const getRideList = async (req, res) => {
   try {
     const { sourceBounds, destinationBounds } = req.body;
+
     const rideList = await PublishModel.find({
       $and: [
         {
           location: {
-            $geoIntersect: {
+            $geoIntersects: {
               $geometry: {
                 type: "Polygon",
                 coordinates: [
@@ -35,7 +36,7 @@ const getRideList = async (req, res) => {
         },
         {
           location: {
-            $geoIntersect: {
+            $geoIntersects: {
               $geometry: {
                 type: "Polygon",
                 coordinates: [
@@ -51,11 +52,10 @@ const getRideList = async (req, res) => {
             },
           },
         },
-        ,
       ],
     });
 
-    if (rideList.length) {
+    if (!rideList.length) {
       return res.status(404).json({
         status: "NO_RIDE_FOUND",
       });
