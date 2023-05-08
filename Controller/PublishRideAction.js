@@ -1,17 +1,17 @@
 //    it contain the logic to provide the routes
 
 const PublishModel = require("../Models/PublishRide");
-
+const decode = require("@mapbox/polyline").toGeoJSON;
 /*
  * now the function publish Ride will create a record in collection provideRide
  * this function will take 7 inputs and these are
  * source place name
  * destination place name
- * date
- * time
+ * DateAndTime
  * description OPTIONAL
  * providerDetailRef ==> this will be taken from req.userState which exist when user is verified using jwt, where _id it will contained inside (this will contain the _id which is used to reference the provider detail in provider collection )
- *  type and waypoints
+ *  type and encodedGeometry
+ * the encodedGeometryData is sent which is converted to waypoints
  * NOTE: waypoints must be array of array ex:[[lng1,lat1],[lng2,lat2]...]
  */
 
@@ -24,7 +24,7 @@ const publishRide = async (req, res) => {
       DateAndTime,
       avilability,
       type,
-      waypoints,
+      encodedGeometry,
       description,
     } = req.body;
 
@@ -36,10 +36,7 @@ const publishRide = async (req, res) => {
       DateAndTime,
       description,
       providerDetailRef: req.userState._id,
-      location: {
-        type,
-        coordinates: waypoints,
-      },
+      location: decode(encodedGeometry),
     }).catch((error) => {
       const errorObj = new Error(`Internal server error : ${error}`);
       errorObj.statusCode = 500;
