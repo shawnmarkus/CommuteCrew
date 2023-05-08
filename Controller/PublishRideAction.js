@@ -16,13 +16,25 @@ const PublishModel = require("../Models/PublishRide");
  */
 
 const publishRide = async (req, res) => {
+  console.log("inside publish ride");
   try {
-    const { source, destination, date, time, type, waypoints } = req.body;
+    const {
+      source,
+      destination,
+      DateAndTime,
+      avilability,
+      type,
+      waypoints,
+      description,
+    } = req.body;
+
+    console.log(`date and time is as : ${DateAndTime}`);
     const createdRide = await PublishModel.create({
       source,
       destination,
-      date,
-      time,
+      avilability,
+      DateAndTime,
+      description,
       providerDetailRef: req.userState._id,
       location: {
         type,
