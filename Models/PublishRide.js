@@ -7,17 +7,17 @@ const PublishRideSchema = mongoose.Schema({
     required: true,
   },
 
+  avilability: {
+    type: Number,
+    required: true,
+  },
+
   destination: {
     type: String,
     required: true,
   },
 
-  date: {
-    type: Date,
-    required: true,
-  },
-
-  time: {
+  DateAndTime: {
     type: Date,
     required: true,
   },
