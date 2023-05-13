@@ -3,7 +3,7 @@ const ProviderModel = require("./Provider");
 
 const PublishRideSchema = mongoose.Schema({
   source: {
-    type: String,
+    type: [],
     required: true,
   },
 
@@ -13,7 +13,7 @@ const PublishRideSchema = mongoose.Schema({
   },
 
   destination: {
-    type: String,
+    type: [],
     required: true,
   },
 

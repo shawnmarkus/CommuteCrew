@@ -54,4 +54,25 @@ const publishRide = async (req, res) => {
   }
 };
 
-module.exports = { publishRide };
+/*
+ * do delete a ride
+ * rideId is required
+ */
+
+const deleteRide = async (req, res) => {
+  try {
+    const { rideId } = req.body;
+    const deletedRide = await PublishModel.findOneAndDelete({ rideId }).catch(
+      (error) => {
+        return res.status(500).json(error.data);
+      }
+    );
+    return res.status(200).json(deletedRide);
+  } catch (error) {
+    const errorObj = new Error(`Internal server error : ${error}`);
+    errorObj.statusCode = 500;
+    throw errorObj;
+  }
+};
+
+module.exports = { publishRide, deleteRide };

@@ -1,6 +1,6 @@
 const routerPath = require("express").Router();
 const { checkIdExist, createProviderRecords } = require("../Controller/Auth");
-const { publishRide } = require("../Controller/PublishRideAction");
+const { publishRide, deleteRide } = require("../Controller/PublishRideAction");
 const { getRideList } = require("../Controller/UserActions");
 const { VerifyToken } = require("../MiddleWare/VerifyToken");
 
@@ -15,5 +15,8 @@ routerPath.route("/publishRide").post(VerifyToken, publishRide);
 
 // to get the list of the rides available
 routerPath.route("/getList").get(getRideList);
+
+// to delete the ride by providerside
+routerPath.route("/provider/deleteride").delete(deleteRide);
 
 module.exports = routerPath;
