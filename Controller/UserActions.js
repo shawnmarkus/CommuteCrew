@@ -12,7 +12,9 @@ const PublishModel = require("../Models/PublishRide");
 
 const getRideList = async (req, res) => {
   try {
-    const { sourceBounds, destinationBounds } = req.body;
+    const { sourceBounds, destinationBounds } = req;
+
+    console.log(sourceBounds);
 
     const rideList = await PublishModel.find({
       $and: [
@@ -21,15 +23,7 @@ const getRideList = async (req, res) => {
             $geoIntersects: {
               $geometry: {
                 type: "Polygon",
-                coordinates: [
-                  [
-                    sourceBounds[0],
-                    sourceBounds[1],
-                    sourceBounds[2],
-                    sourceBounds[3],
-                    sourceBounds[0],
-                  ],
-                ],
+                coordinates: [sourceBounds],
               },
             },
           },
@@ -39,15 +33,7 @@ const getRideList = async (req, res) => {
             $geoIntersects: {
               $geometry: {
                 type: "Polygon",
-                coordinates: [
-                  [
-                    destinationBounds[0],
-                    destinationBounds[1],
-                    destinationBounds[2],
-                    destinationBounds[3],
-                    destinationBounds[0],
-                  ],
-                ],
+                coordinates: [destinationBounds],
               },
             },
           },

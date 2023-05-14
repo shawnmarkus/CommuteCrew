@@ -23,7 +23,6 @@ const publishRide = async (req, res) => {
       destination,
       DateAndTime,
       avilability,
-      type,
       encodedGeometry,
       description,
     } = req.body;
