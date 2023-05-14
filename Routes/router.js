@@ -1,5 +1,9 @@
 const routerPath = require("express").Router();
-const { checkIdExist, createProviderRecords } = require("../Controller/Auth");
+const {
+  checkIdExist,
+  createUserRecords,
+  updateTheUser,
+} = require("../Controller/Auth");
 const { publishRide, deleteRide } = require("../Controller/PublishRideAction");
 const { getRideList } = require("../Controller/UserActions");
 const { VerifyToken } = require("../MiddleWare/VerifyToken");
@@ -13,7 +17,10 @@ const {
 routerPath.route("/auth/:deviceId").get(checkIdExist);
 
 // to create a record corresponding to the device using device_id
-routerPath.route("/auth/provider/create").post(createProviderRecords);
+routerPath.route("/auth/user/create").post(createUserRecords);
+
+// to update the record of user
+routerPath.route("/auth/user/update").patch(updateTheUser);
 
 //  to publish a ride
 routerPath.route("/publishRide").post(VerifyToken, getTheGeometry, publishRide);
