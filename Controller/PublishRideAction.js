@@ -18,15 +18,10 @@ const decode = require("@mapbox/polyline").toGeoJSON;
 const publishRide = async (req, res) => {
   console.log("inside publish ride");
   try {
-    const {
-      source,
-      destination,
-      DateAndTime,
-      avilability,
-      encodedGeometry,
-      description,
-    } = req.body;
-
+    const { source, destination, DateAndTime, avilability, description } =
+      req.body;
+    const encodedGeometry = req.geometry;
+    console.log(encodedGeometry);
     console.log(`date and time is as : ${DateAndTime}`);
     const createdRide = await PublishModel.create({
       source,

@@ -45,6 +45,6 @@ const PublishRideSchema = mongoose.Schema({
   },
 });
 
-const PublishModel = mongoose.model("PublishedRide", PublishRideSchema);
+const PublishModel = mongoose.model("rideList", PublishRideSchema);
 
 module.exports = PublishModel;
