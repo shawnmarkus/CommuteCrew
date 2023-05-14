@@ -39,7 +39,7 @@ const getRideList = async (req, res) => {
           },
         },
       ],
-    });
+    }).populate("providerDetailRef");
 
     if (!rideList.length) {
       return res.status(404).json({
