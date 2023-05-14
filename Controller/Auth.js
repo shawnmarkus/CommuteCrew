@@ -78,7 +78,6 @@ const createUserRecords = async (req, res) => {
 
 const updateTheUser = async (req, res) => {
   const { _id, licenceId, vehicalNo } = req.body;
-  console.log("inside the update User", _id, licenceId, vehicalNo);
 
   if (_id && licenceId && vehicalNo) {
     const updatedUser = await UserModel.findOneAndUpdate(
