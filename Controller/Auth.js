@@ -48,17 +48,12 @@ const checkIdExist = async (req, res) => {
 const createUserRecords = async (req, res) => {
   console.log("in create user");
   try {
-    const { deviceId, userName, contactNumber, licenceId, vehicalNo } =
-      req.body;
+    const { deviceId, userName, contactNumber } = req.body;
 
     const createdUser = await UserModel.create({
       deviceId,
       userName,
       contactNumber,
-      carDetails: {
-        licenceId,
-        vehicalNo,
-      },
     }).catch((error) => {
       const errorObj = new Error(`Internal server error : ${error}`);
       errorObj.statusCode = 500;
