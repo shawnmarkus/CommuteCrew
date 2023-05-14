@@ -16,12 +16,12 @@ const checkIdExist = async (req, res) => {
     }).catch((error) => {
       console.log(error);
       const errorObj = new Error(`Internal server error : ${error}`);
-      errorObj.statusCode = 500;
+      errorObj.statusCode = 200;
       throw errorObj;
     });
 
     if (!userExist) {
-      return res.status(404).json({
+      return res.status(200).json({
         status: "USER_NOT_FOUND",
       });
     }
@@ -36,7 +36,7 @@ const checkIdExist = async (req, res) => {
     });
   } catch (error) {
     const errorObj = new Error(`Internal server error : ${error}`);
-    errorObj.statusCode = 500;
+    errorObj.statusCode = 200;
     throw errorObj;
   }
 };
@@ -56,7 +56,7 @@ const createUserRecords = async (req, res) => {
       contactNumber,
     }).catch((error) => {
       const errorObj = new Error(`Internal server error : ${error}`);
-      errorObj.statusCode = 500;
+      errorObj.statusCode = 200;
       throw errorObj;
     });
 
@@ -66,7 +66,7 @@ const createUserRecords = async (req, res) => {
     });
   } catch (error) {
     const errorObj = new Error(`Internal server error : ${error}`);
-    errorObj.statusCode = 500;
+    errorObj.statusCode = 200;
     throw errorObj;
   }
 };
