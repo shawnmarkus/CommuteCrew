@@ -7,6 +7,8 @@
 
 */
 
+const decode = require("@mapbox/polyline").toGeoJSON;
+
 const getTheGeometry = async (req, res, next) => {
   const { source, destination } = req.body;
   const geometry = await fetchTheRoute(source, destination).catch((err) => {
@@ -32,13 +34,29 @@ const fetchTheRoute = async (source, destination) => {
   return fetch(url).then(function (response) {
     return response.json();
   });
-  // .then(function (data) {
-  //   var route = data.routes[0].geometry;
-  //   console.log(data);
-  // });
-  // .catch(function (error) {
-  //   console.log("Error: " + error);
-  // });
 };
 
-module.exports = { getTheGeometry };
+const getTheWaypoints = async (req, res) => {
+  const { source, destination } = req.body;
+  const geometry = await fetchTheRoute(source, destination).catch((err) => {
+    return res.status(400).json({ errMsg: err });
+  });
+
+  console.log("the geometry is ", geometry);
+
+  var decodedWaypoints = decode(geometry.routes[0].geometry);
+
+  var decodedObj = [];
+
+  var decodedWaypoints = decode(geometry.routes[0].geometry);
+
+  for (let i of decodedWaypoints.coordinates) {
+    var latitude = i[1];
+    var longitude = i[0];
+    decodedObj.push({ latitude, longitude });
+  }
+
+  return res.status(200).json(decodedObj);
+};
+
+module.exports = { getTheGeometry, getTheWaypoints };
