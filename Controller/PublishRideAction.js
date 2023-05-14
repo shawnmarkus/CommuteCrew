@@ -69,4 +69,21 @@ const deleteRide = async (req, res) => {
   }
 };
 
-module.exports = { publishRide, deleteRide };
+const getProvidersRideList = async (req, res) => {
+  const { _id } = req.body;
+  try {
+    const listofRides = await PublishModel.find({
+      providerDetailRef: _id,
+    });
+    // .catch((err) => res.json({ status: "FAILED", error: err }));
+
+    if (!listofRides.length) {
+      return res.json({ status: "NO RECORD FOUND" });
+    }
+    return res.json({ status: "SUCCESS", listofRides });
+  } catch (err) {
+    return res.status(200).json({ status: "FAILED", err });
+  }
+};
+
+module.exports = { publishRide, deleteRide, getProvidersRideList };

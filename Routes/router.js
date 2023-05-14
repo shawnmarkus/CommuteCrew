@@ -4,7 +4,11 @@ const {
   createUserRecords,
   updateTheUser,
 } = require("../Controller/Auth");
-const { publishRide, deleteRide } = require("../Controller/PublishRideAction");
+const {
+  publishRide,
+  deleteRide,
+  getProvidersRideList,
+} = require("../Controller/PublishRideAction");
 const { getRideList } = require("../Controller/UserActions");
 const { VerifyToken } = require("../MiddleWare/VerifyToken");
 const { getQuardrilateralBounds } = require("../MiddleWare/getBounds");
@@ -21,6 +25,9 @@ routerPath.route("/auth/user/create").post(createUserRecords);
 
 // to update the record of user
 routerPath.route("/auth/user/update").patch(updateTheUser);
+
+// route to get the all published ride against a particular provider
+routerPath.route("/provider/getRidsList").post(getProvidersRideList);
 
 //  to publish a ride
 routerPath.route("/publishRide").post(VerifyToken, getTheGeometry, publishRide);
