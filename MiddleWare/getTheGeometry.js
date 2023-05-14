@@ -1,7 +1,7 @@
 /*
  * the request body should have source and destination 
  * format 
- * source = destination ={longitude , latitude }
+ * source = destination ={longitude:..., latitude:... }
  * now after fetching the route successfully 
  * req object now will contain a object as geometry
 
@@ -23,13 +23,13 @@ const getTheGeometry = async (req, res, next) => {
 const fetchTheRoute = async (source, destination) => {
   var url =
     "http://router.project-osrm.org/route/v1/driving/" +
-    source[0] +
+    source.longitude +
     "," +
-    source[1] +
+    source.latitude +
     ";" +
-    destination[0] +
+    destination.longitude +
     "," +
-    destination[1];
+    destination.latitude;
 
   return fetch(url).then(function (response) {
     return response.json();

@@ -5,8 +5,8 @@ const decode = require("@mapbox/polyline").toGeoJSON;
 /*
  * now the function publish Ride will create a record in collection provideRide
  * this function will take 7 inputs and these are
- * source place name
- * destination place name
+ * source place name ===> {latitude:..., longitude:...}
+ * destination place name ====> {latitude:..., longitude:...}
  * DateAndTime
  * description OPTIONAL
  * providerDetailRef ==> this will be taken from req.userState which exist when user is verified using jwt, where _id it will contained inside (this will contain the _id which is used to reference the provider detail in provider collection )
