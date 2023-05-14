@@ -1,6 +1,6 @@
 //  a middle ware to indentify the token and check the device where is used
 
-const ProviderModel = require("../Models/Provider");
+const UserModel = require("../Models/User");
 const jwt = require("jsonwebtoken");
 
 /*
@@ -40,7 +40,7 @@ const VerifyToken = async (req, res, next) => {
       });
     }
 
-    const user = await ProviderModel.findById(verified._id);
+    const user = await UserModel.findById(verified._id);
     if (!user) {
       return res.status(404).json({
         msg: "invalid user",

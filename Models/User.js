@@ -4,16 +4,14 @@ const jwt = require("jsonwebtoken");
 const SubSchemaOfCarDetails = mongoose.Schema({
   licenceId: {
     type: String,
-    required: true,
   },
 
   vehicalNo: {
     type: String,
-    required: true,
   },
 });
 
-const ProviderSchema = mongoose.Schema({
+const userSchema = mongoose.Schema({
   deviceId: {
     type: String,
     required: true,
@@ -30,11 +28,13 @@ const ProviderSchema = mongoose.Schema({
     required: true,
   },
 
-  carDetails: SubSchemaOfCarDetails,
+  carDetails: {
+    type: SubSchemaOfCarDetails,
+  },
 });
 
 // method to generate the token
-ProviderSchema.methods.getSignedToken = async function () {
+userSchema.methods.getSignedToken = async function () {
   return jwt.sign(
     { _id: this._id, deviceId: this.deviceId },
     process.env.SECRET_TOKEN,
@@ -44,6 +44,6 @@ ProviderSchema.methods.getSignedToken = async function () {
   );
 };
 
-const ProviderModel = mongoose.model("Providers", ProviderSchema);
+const userModel = mongoose.model("User", userSchema);
 
-module.exports = ProviderModel;
+module.exports = userModel;

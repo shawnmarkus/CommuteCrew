@@ -1,6 +1,6 @@
 //  this file contains the function of sign In and sign Up by User and Provider
 
-const ProviderModel = require("../Models/Provider");
+const UserModel = require("../Models/User");
 
 /*
  * function checkIdExist requires deviceId
@@ -11,7 +11,7 @@ const ProviderModel = require("../Models/Provider");
 
 const checkIdExist = async (req, res) => {
   try {
-    const userExist = await ProviderModel.findOne({
+    const userExist = await UserModel.findOne({
       deviceId: req.params.deviceId,
     }).catch((error) => {
       console.log(error);
@@ -45,13 +45,13 @@ const checkIdExist = async (req, res) => {
  * function createProviderRecord requires {deviceId , userName, contactNumber, LicenceId , vehicalNo}
  * This function will create the user entry in Db
  */
-const createProviderRecords = async (req, res) => {
+const createUserRecords = async (req, res) => {
   console.log("in create user");
   try {
     const { deviceId, userName, contactNumber, licenceId, vehicalNo } =
       req.body;
 
-    const createdUser = await ProviderModel.create({
+    const createdUser = await UserModel.create({
       deviceId,
       userName,
       contactNumber,
@@ -78,5 +78,6 @@ const createProviderRecords = async (req, res) => {
 
 module.exports = {
   checkIdExist,
-  createProviderRecords,
+  createUserRecords,
+  updateTheUser,
 };
