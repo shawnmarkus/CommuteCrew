@@ -49,23 +49,25 @@ const getRideList = async (req, res) => {
     }
 
     console.log("hurray");
+
     const options = {
       provider: "google",
       apiKey: process.env.API_KEY, // for Mapquest, OpenCage, Google Premier
       formatter: null, // 'gpx', 'string', ...
     };
-
+    
     const geocoder = NodeGeocoder(options);
     for (let i = 0; i < rideList.length; i++) {
       const sourceLocNameRes = await geocoder.reverse({
         lat: rideList[i].source[1],
         lon: rideList[i].source[0],
-      });
+      })
+     
       const destinationLocNameRes = await geocoder.reverse({
         lat: rideList[i].destination[1],
         lon: rideList[i].destination[0],
-      });
-
+      })
+      
       rideList[i].source = sourceLocNameRes[0].formattedAddress;
       rideList[i].destination = destinationLocNameRes[0].formattedAddress;
     }
@@ -75,9 +77,8 @@ const getRideList = async (req, res) => {
       rideList,
     });
   } catch (error) {
-    const errorObj = new Error(`Can't fetch for the list from DB: ${error}`);
-    errorObj.statusCode = 200;
-    throw errorObj;
+    console.error("error ====>",error);
+    return res.json({error:error.message}) ;
   }
 };
 
