@@ -27,7 +27,7 @@ routerPath.route("/auth/user/create").post(createUserRecords);
 routerPath.route("/auth/user/update").patch(updateTheUser);
 
 // route to get the all published ride against a particular provider
-routerPath.route("/provider/getRidsList").post(getProvidersRideList);
+routerPath.route("/provider/getRidesList").post(getProvidersRideList);
 
 //  to publish a ride
 routerPath.route("/publishRide").post(VerifyToken, getTheGeometry, publishRide);
