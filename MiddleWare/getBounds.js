@@ -12,6 +12,7 @@ const getQuardrilateralBounds = async (req, res, next) => {
     req.destinationBounds = destinationBounds;
     next();
   } else {
+    console.log("provide data requirement is of source and destination")
     return res.status(400).json({
       errorMsg: "provide data requirement is of source and destination",
     });
