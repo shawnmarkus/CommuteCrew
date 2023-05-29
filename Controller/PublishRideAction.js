@@ -77,31 +77,28 @@ const getProvidersRideList = async (req, res) => {
     apiKey: process.env.API_KEY, // for Mapquest, OpenCage, Google Premier
     formatter: null, // 'gpx', 'string', ...
   };
-  
   const geocoder = NodeGeocoder(options);
   try {
     const listofRides = await PublishModel.find({
       providerDetailRef: _id,
-    }).populate("providerDetailRef");;
+    }).populate("providerDetailRef");
     // .catch((err) => res.json({ status: "FAILED", error: err }));
 
-
-    for(let i= 0 ; i<listofRides.length;i++){
+    for (let i = 0; i < listofRides.length; i++) {
       const sourceLocNameRes = await geocoder.reverse({
         lat: listofRides[i].source.latitude,
         lon: listofRides[i].source.longitude,
-      })
-     
+      });
+
       const destinationLocNameRes = await geocoder.reverse({
         lat: listofRides[i].destination.latitude,
         lon: listofRides[i].destination.longitude,
-      })
-      
+      });
+
       listofRides[i].source = sourceLocNameRes[0].formattedAddress;
       listofRides[i].destination = destinationLocNameRes[0].formattedAddress;
     }
 
-    
     if (!listofRides.length) {
       return res.json({ status: "NO RECORD FOUND" });
     }

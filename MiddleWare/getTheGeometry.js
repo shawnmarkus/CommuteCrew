@@ -1,8 +1,8 @@
 /*
- * the request body should have source and destination 
- * format 
+ * the request body should have source and destination
+ * format
  * source = destination ={longitude:..., latitude:... }
- * now after fetching the route successfully 
+ * now after fetching the route successfully
  * req object now will contain a object as geometry
 
 */
@@ -38,25 +38,57 @@ const fetchTheRoute = async (source, destination) => {
 
 const getTheWaypoints = async (req, res) => {
   const { source, destination } = req.body;
-  const geometry = await fetchTheRoute(source, destination).catch((err) => {
-    return res.status(400).json({ errMsg: err });
-  });
+  // const geometry = await fetchTheRoute(source, destination).catch((err) => {
+  //   return res.status(400).json({ errMsg: err });
+  // });
 
-  console.log("the geometry is ", geometry);
+  // // console.log("the geometry is ", geometry.code);
 
-  var decodedWaypoints = decode(geometry.routes[0].geometry);
+  // if (geometry.code === "Ok") {
+  //   var decodedWaypoints = decode(geometry.routes[0].geometry);
 
-  var decodedObj = [];
+  //   var decodedObj = [];
 
-  var decodedWaypoints = decode(geometry.routes[0].geometry);
+  //   var decodedWaypoints = decode(geometry.routes[0].geometry);
 
-  for (let i of decodedWaypoints.coordinates) {
-    var latitude = i[1];
-    var longitude = i[0];
-    decodedObj.push({ latitude, longitude });
+  //   for (let i of decodedWaypoints.coordinates) {
+  //     var latitude = i[1];
+  //     var longitude = i[0];
+  //     decodedObj.push({ latitude, longitude });
+  //   }
+  //   return res.status(200).json(decodedObj);
+  // }
+  // else {
+  //   console.log(geometry);
+  //   return res.status(400).json({
+  //     errMsg: `Something went wrong and the error code is ${geometry.code}`,
+  //   });
+  // }
+  // return res.status(200).json(geometry);
+
+  try {
+    const geometry = await fetchTheRoute(source, destination);
+
+    if (geometry.code === "Ok") {
+      var decodedWaypoints = decode(geometry.routes[0].geometry);
+      var decodedObj = [];
+      var decodedWaypoints = decode(geometry.routes[0].geometry);
+      for (let i of decodedWaypoints.coordinates) {
+        var latitude = i[1];
+        var longitude = i[0];
+        decodedObj.push({ latitude, longitude });
+      }
+      return res.status(200).json(decodedObj);
+    }
+    //  else {
+    //   console.log(geometry);
+    //   return res.status(400).json({
+    //     errMsg: `Something went wrong and the error code is ${geometry.code}`,
+    //   });
+    // }
+  } catch (err) {
+    return res.status(404).json({ errMsg: err });
   }
-
-  return res.status(200).json(decodedObj);
 };
 
 module.exports = { getTheGeometry, getTheWaypoints };
