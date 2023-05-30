@@ -30,6 +30,11 @@ app.use(express.json());
 //   })
 // );
 
+// test case
+app.get("/", (req, res) => {
+  res.send("hi");
+});
+
 app.use(routes);
 
 // listening port
