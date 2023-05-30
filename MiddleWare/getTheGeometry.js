@@ -8,6 +8,7 @@
 */
 
 const decode = require("@mapbox/polyline").toGeoJSON;
+const axios = require("axios");
 
 const getTheGeometry = async (req, res, next) => {
   const { source, destination } = req.body;
@@ -31,8 +32,8 @@ const fetchTheRoute = async (source, destination) => {
     "," +
     destination.latitude;
 
-  return fetch(url).then(function (response) {
-    return response.json();
+  return axios.get(url).then(function (response) {
+    return response.data;
   });
 };
 
@@ -54,6 +55,7 @@ const getTheWaypoints = async (req, res) => {
       return res.status(200).json(decodedObj);
     }
   } catch (err) {
+    console.log(err);
     return res.status(404).json({ errMsg: err });
   }
 };
